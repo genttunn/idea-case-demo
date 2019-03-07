@@ -58,7 +58,7 @@ export function addCategory(category) {
     dispatch(categoryAdd_REQ());
     if (!category.id || !category.name || !category.budget) {
       dispatch(categoryAdd_X());
-      console.log("invalid input");
+      alert("All fields required. ID and Budget must be numbers.");
     } else {
       fetch(serverURL + "/add", {
         method: "POST",
@@ -74,7 +74,9 @@ export function addCategory(category) {
       })
         .then(data => {
           if (data.status === 422) {
-            alert("This id already exists");
+            alert("This ID already exists");
+          } else if (data.status === 423) {
+            alert("All fields required. ID and Budget must be numbers.");
           }
           return data.json();
         })

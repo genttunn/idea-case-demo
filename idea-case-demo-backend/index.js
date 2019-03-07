@@ -79,12 +79,15 @@ app.post("/category/add", (req, res) => {
   };
   checkCategory(res, category, filePath);
 });
-
+/*Check logic : check if id and budget are numbers (must be both numbers), then check if id already exists (must not), then add category */
 function checkCategory(res, category, filePath) {
   jsonfile
     .readFile(filePath)
     .then(obj => {
-      if (!checkId(category, obj)) {
+      if (isNaN(category.id) || isNaN(category.budget)) {
+        res.writeHead(423, { "Content-Type": "text/plain" });
+        res.end("Wrong input");
+      } else if (!checkId(category, obj)) {
         addCategory(res, category, filePath);
       } else {
         res.writeHead(422, { "Content-Type": "text/plain" });
