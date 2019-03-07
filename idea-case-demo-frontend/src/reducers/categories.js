@@ -44,8 +44,6 @@ export default function categories(state = initialState, action) {
         isLoading: false
       };
     case ActionTypes.CATEGORY_DEL_REQ:
-      console.log("from reducer");
-      console.log(action.categoryList);
       return {
         ...state,
         categoryList: action.categoryList,

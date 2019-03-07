@@ -1,5 +1,4 @@
 import ActionTypes from "./ActionTypes";
-import { fetchTestCategories } from "../models/Test";
 const serverURL = "http://localhost:7000/category";
 // ACTION CREATORS (Action object creator functions)
 // ~ standard and only way to create each action object

@@ -88,6 +88,7 @@ function checkCategory(res, category, filePath) {
         res.writeHead(423, { "Content-Type": "text/plain" });
         res.end("Wrong input");
       } else if (!checkId(category, obj)) {
+        category.budget = Number(category.budget);
         addCategory(res, category, filePath);
       } else {
         res.writeHead(422, { "Content-Type": "text/plain" });
