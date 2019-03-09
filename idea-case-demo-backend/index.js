@@ -56,7 +56,7 @@ app.get("/category/alljson", (req, res) => {
     .readFile(filePath)
     .then(data => {
       res.writeHead(200, {
-        "Content-Type": "text/plain"
+        "Content-Type": "application/json"
       });
       res.end(JSON.stringify(data));
     })
@@ -85,13 +85,15 @@ function checkCategory(res, category, filePath) {
     .readFile(filePath)
     .then(obj => {
       if (isNaN(category.id) || isNaN(category.budget)) {
+        /// CHECK FAILED
         res.writeHead(423, { "Content-Type": "text/plain" });
         res.end("Wrong input");
       } else if (!checkId(category, obj)) {
+        //// CHECK PASSED
         category.budget = Number(category.budget);
         addCategory(res, category, filePath);
       } else {
-        res.writeHead(422, { "Content-Type": "text/plain" });
+        res.writeHead(422, { "Content-Type": "text/plain" }); /// CHECK FAILED
         res.end("ID already exists");
       }
     })
@@ -155,7 +157,7 @@ function deleteCategory(res, category, filePath) {
       return obj;
     })
     .then(obj => {
-      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(obj));
     })
     .catch(() => {

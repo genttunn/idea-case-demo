@@ -1,0 +1,434 @@
+{
+	"info": {
+		"_postman_id": "540975b3-18b1-4183-9e26-d70fa2d44d82",
+		"name": "idea-case-demo-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:7000/hello",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28bec90e-1ff3-4456-bcaf-183c8aa3a510",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"",
+							"});pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Hello World\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\":\"newfoo\",\n  \"points\": 20\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"hello"
+					]
+				},
+				"description": "Status check"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/alljson",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a573963a-0c72-4618-b770-244bbbad75e9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b421747-5424-44bf-bb24-2afd214f2548",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"console.log(typeof pm.response)",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({logger: console}),",
+							"    schema = {",
+							"        \"properties\": {",
+							"            \"alpha\": {",
+							"                \"type\": \"boolean\"",
+							"            }",
+							"        }",
+							"    };",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"    pm.expect(ajv.validate(schema, {alpha: true})).to.be.true;",
+							"    pm.expect(ajv.validate(schema, {alpha: 123})).to.be.false;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "name",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\":\"foo\",\n  \"points\": 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/alljson",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"alljson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/allfs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e9e399d-c386-4138-ad77-770afd0faa20",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"console.log(typeof pm.response)",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({logger: console}),",
+							"    schema = {",
+							"        \"properties\": {",
+							"            \"alpha\": {",
+							"                \"type\": \"boolean\"",
+							"            }",
+							"        }",
+							"    };",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"    pm.expect(ajv.validate(schema, {alpha: true})).to.be.true;",
+							"    pm.expect(ajv.validate(schema, {alpha: 123})).to.be.false;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/allfs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"allfs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/add OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({logger: console}),",
+							"    schema = {",
+							"        \"properties\": {",
+							"            \"alpha\": {",
+							"                \"type\": \"boolean\"",
+							"            }",
+							"        }",
+							"    };",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"    pm.expect(ajv.validate(schema, {alpha: true})).to.be.true;",
+							"    pm.expect(ajv.validate(schema, {alpha: 123})).to.be.false;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"100\",\n\"name\": \"Test\",\n\"budget\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"add"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/add ALREADY EXISTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ID already exists\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"100\",\n\"name\": \"Test\",\n\"budget\": 100\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"add"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/add WRONG INPUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(423);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Wrong input\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"One hundred\",\n\"name\": \"Test\",\n\"budget\": \"And ten\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"add"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({logger: console}),",
+							"    schema = {",
+							"        \"properties\": {",
+							"            \"alpha\": {",
+							"                \"type\": \"boolean\"",
+							"            }",
+							"        }",
+							"    };",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"    pm.expect(ajv.validate(schema, {alpha: true})).to.be.true;",
+							"    pm.expect(ajv.validate(schema, {alpha: 123})).to.be.false;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"100\",\"name\":\"Test\",\"budget\":100}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"delete"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		}
+	]
+}
