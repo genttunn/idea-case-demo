@@ -368,6 +368,170 @@
 			"response": []
 		},
 		{
+			"name": "localhost:7000/category/edit OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var Ajv = require('ajv'),",
+							"    ajv = new Ajv({logger: console}),",
+							"    schema = {",
+							"        \"properties\": {",
+							"            \"alpha\": {",
+							"                \"type\": \"boolean\"",
+							"            }",
+							"        }",
+							"    };",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"    pm.expect(ajv.validate(schema, {alpha: true})).to.be.true;",
+							"    pm.expect(ajv.validate(schema, {alpha: 123})).to.be.false;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"100\",\n\"name\": \"Tester\",\n\"budget\": 1000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"edit"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/edit FAILED A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(423);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid budget\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"100\",\n\"name\": \"Tester\",\n\"budget\": -1000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"edit"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7000/category/edit FAILED B",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f178310-5e7c-40b8-a3fe-757ef2930889",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid input\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"100\",\n\"name\": null,\n\"budget\": null\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/category/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"category",
+						"edit"
+					]
+				},
+				"description": "Successful ADD"
+			},
+			"response": []
+		},
+		{
 			"name": "localhost:7000/category/delete",
 			"event": [
 				{
@@ -412,7 +576,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":\"100\",\"name\":\"Test\",\"budget\":100}"
+					"raw": "{\"id\": \"100\",\n\"name\": \"Tester\",\n\"budget\": 1000\n}"
 				},
 				"url": {
 					"raw": "http://localhost:7000/category/delete",

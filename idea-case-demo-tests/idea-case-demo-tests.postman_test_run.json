@@ -1,8 +1,8 @@
 {
-	"id": "2e29516c-2705-432e-baa7-c3de39afd353",
+	"id": "44b1a39f-aa63-424c-8b16-5c6d14eea66f",
 	"name": "idea-case-demo-tests",
 	"allTests": [],
-	"timestamp": "2019-03-09T22:29:41.578Z",
+	"timestamp": "2019-03-10T02:11:19.472Z",
 	"collection_id": "540975b3-18b1-4183-9e26-d70fa2d44d82",
 	"folder_id": 0,
 	"target_type": "collection",
@@ -24,6 +24,9 @@
 			"95c82091-064d-4ae1-9be1-30618b0444fd",
 			"616d29e1-ca39-45d1-bf72-259e1d149d31",
 			"cd127f6a-b9dd-4c8d-bf50-fc4b0d531e61",
+			"c0444f9e-e250-4b1c-94fe-2a9c4d230a21",
+			"ffa1227b-3ee8-4007-a8e9-59997c61f9ef",
+			"34c382c9-724a-497d-8e37-74e6e8b5f2f2",
 			"6db31e7d-25a5-4263-888b-f59dc00376d5"
 		],
 		"folders_order": [],
@@ -68,7 +71,7 @@
 				}
 			},
 			"times": [
-				"60"
+				"32"
 			],
 			"allTests": [
 				{
@@ -76,8 +79,8 @@
 					"Body matches string": true
 				}
 			],
-			"time": "60",
-			"totalRequestTime": "60",
+			"time": "32",
+			"totalRequestTime": "32",
 			"iterationResults": {}
 		},
 		{
@@ -152,7 +155,7 @@
 				}
 			},
 			"times": [
-				"25"
+				"16"
 			],
 			"allTests": [
 				{
@@ -160,8 +163,8 @@
 					"Schema is valid": true
 				}
 			],
-			"time": "25",
-			"totalRequestTime": "25",
+			"time": "16",
+			"totalRequestTime": "16",
 			"iterationResults": {}
 		},
 		{
@@ -194,7 +197,7 @@
 				}
 			},
 			"times": [
-				"21"
+				"7"
 			],
 			"allTests": [
 				{
@@ -202,8 +205,8 @@
 					"Schema is valid": true
 				}
 			],
-			"time": "21",
-			"totalRequestTime": "21",
+			"time": "7",
+			"totalRequestTime": "7",
 			"iterationResults": {}
 		},
 		{
@@ -236,7 +239,7 @@
 				}
 			},
 			"times": [
-				"8"
+				"4"
 			],
 			"allTests": [
 				{
@@ -244,8 +247,8 @@
 					"Body matches string": true
 				}
 			],
-			"time": "8",
-			"totalRequestTime": "8",
+			"time": "4",
+			"totalRequestTime": "4",
 			"iterationResults": {}
 		},
 		{
@@ -291,9 +294,51 @@
 			"iterationResults": {}
 		},
 		{
-			"name": "localhost:7000/category/delete",
-			"id": "6db31e7d-25a5-4263-888b-f59dc00376d5",
-			"url": "http://localhost:7000/category/add",
+			"name": "localhost:7000/category/edit OK",
+			"id": "c0444f9e-e250-4b1c-94fe-2a9c4d230a21",
+			"url": "http://localhost:7000/category/edit",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"error": null,
+				"name": "Status code is 200",
+				"status": "pass",
+				"Schema is valid": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"3"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Schema is valid": true
+				}
+			],
+			"time": "3",
+			"totalRequestTime": "3",
+			"iterationResults": {}
+		},
+		{
+			"name": "localhost:7000/category/edit FAILED A",
+			"id": "ffa1227b-3ee8-4007-a8e9-59997c61f9ef",
+			"url": "http://localhost:7000/category/edit",
 			"totalTime": 0,
 			"responseCode": {
 				"code": 423,
@@ -320,7 +365,7 @@
 				}
 			},
 			"times": [
-				"9"
+				"2"
 			],
 			"allTests": [
 				{
@@ -328,21 +373,105 @@
 					"Body matches string": true
 				}
 			],
-			"time": "9",
-			"totalRequestTime": "9",
+			"time": "2",
+			"totalRequestTime": "2",
+			"iterationResults": {}
+		},
+		{
+			"name": "localhost:7000/category/edit FAILED B",
+			"id": "34c382c9-724a-497d-8e37-74e6e8b5f2f2",
+			"url": "http://localhost:7000/category/edit",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity",
+				"detail": {
+					"name": "Unprocessable Entity (WebDAV) (RFC 4918)",
+					"detail": "The request was well-formed but was unable to be followed due to semantic errors."
+				}
+			},
+			"tests": {
+				"error": null,
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"2"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			],
+			"time": "2",
+			"totalRequestTime": "2",
+			"iterationResults": {}
+		},
+		{
+			"name": "localhost:7000/category/delete",
+			"id": "6db31e7d-25a5-4263-888b-f59dc00376d5",
+			"url": "http://localhost:7000/category/delete",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"error": null,
+				"name": "Status code is 200",
+				"status": "pass",
+				"Schema is valid": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Schema is valid": true
+				}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
 			"iterationResults": {}
 		}
 	],
-	"totalPass": 14,
+	"totalPass": 20,
 	"totalFail": 0,
-	"totalTime": 138,
+	"totalTime": 87,
 	"lifecycle": "done",
 	"requests": [
 		{
 			"name": "localhost:7000/hello",
 			"id": "75436475-7b5e-4dd6-b058-98f0c67dc202",
 			"url": "http://localhost:7000/hello",
-			"time": "2019-03-09T22:29:41.578Z",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 200,
 				"name": "OK",
@@ -366,7 +495,7 @@
 			"name": "localhost:7000/category/alljson",
 			"id": "72ba68c8-9a2a-4f21-b896-b3326431a57d",
 			"url": "http://localhost:7000/category/alljson",
-			"time": "2019-03-09T22:29:41.578Z",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 200,
 				"name": "OK",
@@ -390,7 +519,7 @@
 			"name": "localhost:7000/category/allfs",
 			"id": "062e1570-c140-4c54-ac4c-9052c8723f6c",
 			"url": "http://localhost:7000/category/allfs",
-			"time": "2019-03-09T22:29:41.578Z",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 200,
 				"name": "OK",
@@ -414,7 +543,7 @@
 			"name": "localhost:7000/category/add OK",
 			"id": "95c82091-064d-4ae1-9be1-30618b0444fd",
 			"url": "http://localhost:7000/category/add",
-			"time": "2019-03-09T22:29:41.578Z",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 200,
 				"name": "OK",
@@ -438,7 +567,7 @@
 			"name": "localhost:7000/category/add ALREADY EXISTS",
 			"id": "616d29e1-ca39-45d1-bf72-259e1d149d31",
 			"url": "http://localhost:7000/category/add",
-			"time": "2019-03-09T22:29:41.578Z",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 422,
 				"name": "Unprocessable Entity",
@@ -462,7 +591,7 @@
 			"name": "localhost:7000/category/add WRONG INPUT",
 			"id": "cd127f6a-b9dd-4c8d-bf50-fc4b0d531e61",
 			"url": "http://localhost:7000/category/add",
-			"time": "2019-03-09T22:29:41.578Z",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 423,
 				"name": "Locked",
@@ -483,10 +612,34 @@
 			}
 		},
 		{
-			"name": "localhost:7000/category/delete",
-			"id": "6db31e7d-25a5-4263-888b-f59dc00376d5",
-			"url": "http://localhost:7000/category/add",
-			"time": "2019-03-09T22:29:41.578Z",
+			"name": "localhost:7000/category/edit OK",
+			"id": "c0444f9e-e250-4b1c-94fe-2a9c4d230a21",
+			"url": "http://localhost:7000/category/edit",
+			"time": "2019-03-10T02:11:19.472Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema is valid": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "localhost:7000/category/edit FAILED A",
+			"id": "ffa1227b-3ee8-4007-a8e9-59997c61f9ef",
+			"url": "http://localhost:7000/category/edit",
+			"time": "2019-03-10T02:11:19.472Z",
 			"responseCode": {
 				"code": 423,
 				"name": "Locked",
@@ -501,6 +654,54 @@
 					"fail": 0
 				},
 				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "localhost:7000/category/edit FAILED B",
+			"id": "34c382c9-724a-497d-8e37-74e6e8b5f2f2",
+			"url": "http://localhost:7000/category/edit",
+			"time": "2019-03-10T02:11:19.472Z",
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity",
+				"detail": {
+					"name": "Unprocessable Entity (WebDAV) (RFC 4918)",
+					"detail": "The request was well-formed but was unable to be followed due to semantic errors."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "localhost:7000/category/delete",
+			"id": "6db31e7d-25a5-4263-888b-f59dc00376d5",
+			"url": "http://localhost:7000/category/delete",
+			"time": "2019-03-10T02:11:19.472Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Schema is valid": {
 					"pass": 1,
 					"fail": 0
 				}

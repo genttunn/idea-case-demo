@@ -141,7 +141,6 @@ app.post("/category/delete", (req, res) => {
     name: req.body.name,
     budget: req.body.budget
   };
-  console.log("delete from servcer " + JSON.stringify(category));
   deleteCategory(res, category, filePath);
 });
 
@@ -151,6 +150,51 @@ function deleteCategory(res, category, filePath) {
     .then(list => {
       list = [...list.filter(obj => obj.id !== category.id)];
       return list;
+    })
+    .then(obj => {
+      jsonfile.writeFile(filePath, obj);
+      return obj;
+    })
+    .then(obj => {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(obj));
+    })
+    .catch(() => {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Reading or Writing server side JSON file failed.");
+    });
+}
+
+/// EDIT CATEGORY
+
+app.post("/category/edit", (req, res) => {
+  const category = {
+    id: req.body.id,
+    name: req.body.name,
+    budget: req.body.budget
+  };
+  category.budget = Number(category.budget);
+  if (!category.name || !category.budget) {
+    res.writeHead(422, { "Content-Type": "text/plain" });
+    res.end("Invalid input");
+  } else if (category.budget < 0) {
+    res.writeHead(423, { "Content-Type": "text/plain" });
+    res.end("Invalid budget");
+  } else {
+    editCategory(res, category, filePath);
+  }
+});
+
+function editCategory(res, category, filePath) {
+  jsonfile
+    .readFile(filePath)
+    .then(list => {
+      itemOld = list.find(obj => obj.id === category.id);
+      let newList = [...list];
+      let index = newList.indexOf(itemOld);
+      newList[index].name = category.name;
+      newList[index].budget = category.budget;
+      return newList;
     })
     .then(obj => {
       jsonfile.writeFile(filePath, obj);

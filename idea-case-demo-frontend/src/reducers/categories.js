@@ -54,7 +54,17 @@ export default function categories(state = initialState, action) {
         ...state,
         isLoading: false
       };
-
+    case ActionTypes.CATEGORY_EDIT_REQ:
+      return {
+        ...state,
+        categoryList: action.categoryList,
+        isloading: false
+      };
+    case ActionTypes.CATEGORY_EDIT_X:
+      return {
+        ...state,
+        isLoading: false
+      };
     /*
         case ActionTypes.CATEGORY_RANDOMIZED_REQ:
             return {

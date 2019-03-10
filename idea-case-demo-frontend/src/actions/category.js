@@ -20,6 +20,16 @@ export const categoryDEL = categoryList => ({
 export const categoryDEL_X = () => ({
   type: ActionTypes.CATEGORY_DEL_X
 });
+
+export const categoryEDIT = categoryList => ({
+  type: ActionTypes.CATEGORY_EDIT_REQ,
+  categoryList: categoryList
+});
+
+export const categoryEDIT_X = () => ({
+  type: ActionTypes.CATEGORY_EDIT_X
+});
+
 // Helper function, real action function?
 export function fetchAllCategories() {
   return async (dispatch, getState) => {
@@ -113,6 +123,38 @@ export function deleteCategory(category) {
       .catch(() => dispatch(categoriesAll_X()));
   };
 }
+
+export function editCategory(category) {
+  return async (dispatch, getState) => {
+    // dispatch(categoryDEL(category));
+    fetch(serverURL + "/edit", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: category.id,
+        name: category.name,
+        budget: category.budget
+      })
+    })
+      .then(data => {
+        if (data.status === 422) {
+          alert("Invalid input. Please fill all blanks.");
+        } else if (data.status === 423) {
+          alert("Invalid budget");
+        }
+        return data.json();
+      })
+      .then(data => {
+        const categoryList = data;
+        dispatch(categoryEDIT(categoryList));
+      })
+      .catch(() => dispatch(categoryEDIT_X()));
+  };
+}
+
 // Same with other actions...
 // Action object creator functions
 /*
