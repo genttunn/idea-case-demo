@@ -13,19 +13,34 @@ export const categoriesAll_X = () => ({
   type: ActionTypes.CATEGORIES_ALL_X
 });
 
-export const categoryDEL = categoryList => ({
-  type: ActionTypes.CATEGORY_DEL_REQ,
-  categoryList: categoryList
+// Same with other actions...
+// Action object creator functions
+export const categoryAdd_REQ = () => ({
+  type: ActionTypes.CATEGORY_ADD_REQ
+});
+export const categoryAdd_OK = () => ({
+  type: ActionTypes.CATEGORY_ADD_OK
+});
+export const categoryAdd_X = () => ({
+  type: ActionTypes.CATEGORY_ADD_X
+});
+
+export const categoryDEL_REQ = () => ({
+  type: ActionTypes.CATEGORY_DEL_REQ
+});
+export const categoryDEL_OK = () => ({
+  type: ActionTypes.CATEGORY_DEL_OK
 });
 export const categoryDEL_X = () => ({
   type: ActionTypes.CATEGORY_DEL_X
 });
 
-export const categoryEDIT = categoryList => ({
-  type: ActionTypes.CATEGORY_EDIT_REQ,
-  categoryList: categoryList
+export const categoryEDIT_REQ = () => ({
+  type: ActionTypes.CATEGORY_EDIT_REQ
 });
-
+export const categoryEDIT_OK = () => ({
+  type: ActionTypes.CATEGORY_EDIT_OK
+});
 export const categoryEDIT_X = () => ({
   type: ActionTypes.CATEGORY_EDIT_X
 });
@@ -47,19 +62,6 @@ export function fetchAllCategories() {
       });
   };
 }
-
-// Same with other actions...
-// Action object creator functions
-export const categoryAdd_REQ = () => ({
-  type: ActionTypes.CATEGORY_ADD_REQ
-});
-export const categoryAdd_OK = categoryList => ({
-  type: ActionTypes.CATEGORY_ADD_OK,
-  categoryList: categoryList
-});
-export const categoryAdd_X = () => ({
-  type: ActionTypes.CATEGORY_ADD_X
-});
 
 // Helper function, real action function?
 export function addCategory(category) {
@@ -84,14 +86,14 @@ export function addCategory(category) {
         .then(data => {
           if (data.status === 422) {
             alert("This ID already exists");
+            dispatch(categoryAdd_X());
           } else if (data.status === 423) {
             alert("All fields required. ID and Budget must be numbers.");
+            dispatch(categoryAdd_X());
+          } else if (data.status === 200) {
+            dispatch(categoryAdd_OK());
+            dispatch(fetchAllCategories());
           }
-          return data.json();
-        })
-        .then(data => {
-          const categoryList = data;
-          dispatch(categoryAdd_OK(categoryList));
         })
         .catch(() => {
           dispatch(categoryAdd_X());
@@ -102,7 +104,7 @@ export function addCategory(category) {
 
 export function deleteCategory(category) {
   return async (dispatch, getState) => {
-    // dispatch(categoryDEL(category));
+    dispatch(categoryDEL_REQ());
     fetch(serverURL + "/delete", {
       method: "POST",
       headers: {
@@ -115,18 +117,17 @@ export function deleteCategory(category) {
         budget: category.budget
       })
     })
-      .then(data => data.json())
-      .then(data => {
-        const categoryList = data;
-        dispatch(categoryDEL(categoryList));
+      .then(() => {
+        dispatch(categoryDEL_OK());
+        dispatch(fetchAllCategories());
       })
-      .catch(() => dispatch(categoriesAll_X()));
+      .catch(() => dispatch(categoryDEL_X()));
   };
 }
 
 export function editCategory(category) {
   return async (dispatch, getState) => {
-    // dispatch(categoryDEL(category));
+    dispatch(categoryEDIT_REQ());
     fetch(serverURL + "/edit", {
       method: "POST",
       headers: {
@@ -141,15 +142,15 @@ export function editCategory(category) {
     })
       .then(data => {
         if (data.status === 422) {
+          dispatch(categoryEDIT_X());
           alert("Invalid input. Please fill all blanks.");
         } else if (data.status === 423) {
+          dispatch(categoryEDIT_X());
           alert("Invalid budget");
+        } else if (data.status === 200) {
+          dispatch(categoryEDIT_OK());
+          dispatch(fetchAllCategories());
         }
-        return data.json();
-      })
-      .then(data => {
-        const categoryList = data;
-        dispatch(categoryEDIT(categoryList));
       })
       .catch(() => dispatch(categoryEDIT_X()));
   };

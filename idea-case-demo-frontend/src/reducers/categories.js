@@ -35,7 +35,6 @@ export default function categories(state = initialState, action) {
     case ActionTypes.CATEGORY_ADD_OK:
       return {
         ...state,
-        categoryList: action.categoryList,
         isLoading: false
       };
     case ActionTypes.CATEGORY_ADD_X:
@@ -46,8 +45,12 @@ export default function categories(state = initialState, action) {
     case ActionTypes.CATEGORY_DEL_REQ:
       return {
         ...state,
-        categoryList: action.categoryList,
-        isloading: false
+        isLoading: true
+      };
+    case ActionTypes.CATEGORY_DEL_OK:
+      return {
+        ...state,
+        isLoading: false
       };
     case ActionTypes.CATEGORY_DEL_X:
       return {
@@ -57,8 +60,12 @@ export default function categories(state = initialState, action) {
     case ActionTypes.CATEGORY_EDIT_REQ:
       return {
         ...state,
-        categoryList: action.categoryList,
-        isloading: false
+        isloading: true
+      };
+    case ActionTypes.CATEGORY_EDIT_OK:
+      return {
+        ...state,
+        isLoading: false
       };
     case ActionTypes.CATEGORY_EDIT_X:
       return {

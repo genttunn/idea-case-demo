@@ -30,7 +30,6 @@ class CategoryEdit extends Component {
               <input
                 id="name"
                 type="text"
-                placeholder={this.props.modalName}
                 onChange={this.inputFieldValueChanged}
               />
               {"  "}
@@ -38,7 +37,6 @@ class CategoryEdit extends Component {
               <input
                 id="budget"
                 type="number"
-                placeholder={this.props.modalBudget}
                 onChange={this.inputFieldValueChanged}
               />
             </span>
