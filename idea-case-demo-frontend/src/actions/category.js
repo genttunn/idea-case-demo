@@ -13,6 +13,17 @@ export const categoriesAll_X = () => ({
   type: ActionTypes.CATEGORIES_ALL_X
 });
 
+export const categoriesSEARCH_REQ = () => ({
+  type: ActionTypes.CATEGORIES_SEARCH_REQ
+});
+export const categoriesSEARCH_OK = categoryList => ({
+  type: ActionTypes.CATEGORIES_SEARCH_OK,
+  categoryList: categoryList
+});
+export const categoriesSEARCH_X = () => ({
+  type: ActionTypes.CATEGORIES_SEARCH_X
+});
+
 // Same with other actions...
 // Action object creator functions
 export const categoryAdd_REQ = () => ({

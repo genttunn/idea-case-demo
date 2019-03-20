@@ -35,7 +35,7 @@ class CategoryList extends Component {
   componentDidMount() {
     //this.setState({ categories: fetchTestCategories() });
     this.props.categoriesFetchAll();
-  }
+  }''
 
   render() {
     return (
