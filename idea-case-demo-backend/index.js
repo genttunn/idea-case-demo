@@ -213,22 +213,42 @@ app.get("/category/search", (req, res) => {
   console.log("search");
   const criteria = {
     name: req.query.name,
-    budget: Number(req.query.budget)
+    budget: Number(req.query.budget),
+    isAbove: convertBoolean(req.query.isAbove)
   };
   console.log(JSON.stringify(criteria));
+  console.log(typeof criteria.isAbove);
   searchCategory(res, criteria, filePath);
 });
 
+function convertBoolean(input) {
+  if (input === "true") {
+    return true;
+  } else if (input === "false") {
+    return false;
+  }
+}
 function searchCategory(res, criteria, filePath) {
   console.log(criteria);
   jsonfile
     .readFile(filePath)
     .then(list => {
-      result = [
-        ...list.filter(
-          item => item.name == criteria.name || item.budget == criteria.budget
-        )
-      ];
+      result = [];
+      if (typeof criteria.isAbove === "undefined") {
+        result = [
+          ...list.filter(
+            item => item.name == criteria.name || item.budget == criteria.budget
+          )
+        ];
+      } else {
+        console.log("this loop");
+        console.log(criteria.isAbove);
+        if (criteria.isAbove) {
+          result = [...list.filter(item => item.budget >= criteria.budget)];
+        } else {
+          result = [...list.filter(item => item.budget < criteria.budget)];
+        }
+      }
       return result;
     })
     .then(result => {

@@ -41,6 +41,12 @@ class CategorySearch extends Component {
           />
           <br />
           <br />
+          <form action="">
+            <label>Above</label>
+            <input type="radio" id="isAbove" />
+            <label>Below</label>
+            <input type="radio" id="isBelow" />
+          </form>
           <button
             className="btn btn-success "
             type="button"
