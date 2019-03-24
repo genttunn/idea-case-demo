@@ -40,7 +40,7 @@ class CategoryAdd extends Component {
           Budget:{" "}
           <input
             id="budget"
-            type="text"
+            type="number"
             onChange={this.inputFieldValueChanged}
           />
           <br />

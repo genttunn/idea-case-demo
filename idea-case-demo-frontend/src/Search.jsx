@@ -8,7 +8,7 @@ class Search extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar style={{ marginBottom: 10 }} />
+        <Navbar style={{ marginBottom: 10 }} link="/" />
         <main className="container mt-3">
           <SearchCategories />
         </main>

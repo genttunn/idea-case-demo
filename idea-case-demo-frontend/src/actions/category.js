@@ -16,14 +16,17 @@ export const categoriesAll_X = () => ({
 export const categoriesSEARCH_REQ = () => ({
   type: ActionTypes.CATEGORIES_SEARCH_REQ
 });
-export const categoriesSEARCH_OK = categoryList => ({
+export const categoriesSEARCH_OK = categorySearch => ({
   type: ActionTypes.CATEGORIES_SEARCH_OK,
-  categoryList: categoryList
+  categorySearch: categorySearch
 });
 export const categoriesSEARCH_X = () => ({
   type: ActionTypes.CATEGORIES_SEARCH_X
 });
-
+export const categoriesIS_SEARCH = isSearch => ({
+  type: ActionTypes.CATEGORIES_IS_SEARCH,
+  isSearch: isSearch
+});
 // Same with other actions...
 // Action object creator functions
 export const categoryAdd_REQ = () => ({
@@ -164,6 +167,43 @@ export function editCategory(category) {
         }
       })
       .catch(() => dispatch(categoryEDIT_X()));
+  };
+}
+
+export function searchCategory(criteria) {
+  return async (dispatch, getState) => {
+    dispatch(categoriesSEARCH_REQ());
+    fetch(serverURL + "/search", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: criteria.name,
+        budget: criteria.budget,
+        isAbove: criteria.isAbove
+      })
+    })
+      .then(data => data.json())
+      .then(data => {
+        const categorySearch = data;
+        console.log(categorySearch);
+        dispatch(categoriesSEARCH_OK(categorySearch));
+        dispatch(fetchAllCategories());
+      })
+      .catch(() => {
+        console.log("error fetching");
+        dispatch(categoriesSEARCH_X());
+      });
+  };
+}
+
+export function toggleSearch(isSearch) {
+  return async dispatch => {
+    console.log("toggle");
+    console.log(isSearch);
+    dispatch(categoriesIS_SEARCH(isSearch));
   };
 }
 
