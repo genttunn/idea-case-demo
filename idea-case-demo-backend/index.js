@@ -3,7 +3,7 @@ var app = express();
 const filePath = __dirname + "/" + "categories.json";
 var fs = require("fs");
 var jsonfile = require("jsonfile");
-
+var FuzzySearch = require("fuzzy-search");
 var bodyParser = require("body-parser");
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
@@ -84,7 +84,11 @@ function checkCategory(res, category, filePath) {
   jsonfile
     .readFile(filePath)
     .then(obj => {
-      if (isNaN(category.id) || isNaN(category.budget)) {
+      if (
+        isNaN(category.id) ||
+        isNaN(category.budget) ||
+        category.budget <= 0
+      ) {
         /// CHECK FAILED
         res.writeHead(423, { "Content-Type": "text/plain" });
         res.end("Wrong input");
@@ -213,7 +217,6 @@ function editCategory(res, category, filePath) {
 /// 5 SEARCH CATEGORY
 
 app.post("/category/search", (req, res) => {
-  console.log(req.body);
   const criteria = {
     name: req.body.name,
     budget: Number(req.body.budget),
@@ -229,12 +232,7 @@ function searchCategory(res, criteria, filePath) {
       result = [];
       switch (criteria.isAbove) {
         case 0: //Equal
-          result = [
-            ...list.filter(
-              item =>
-                item.name == criteria.name || item.budget == criteria.budget
-            )
-          ];
+          result = [...list.filter(item => item.budget == criteria.budget)];
           break;
         case 1: //Above
           result = [...list.filter(item => item.budget >= criteria.budget)];
@@ -242,6 +240,9 @@ function searchCategory(res, criteria, filePath) {
         case 2: //Below
           result = [...list.filter(item => item.budget < criteria.budget)];
           break;
+        case 3: //String name
+          const searcher = new FuzzySearch(list, ["name"]);
+          result = searcher.search(criteria.name);
       }
       return result;
     })

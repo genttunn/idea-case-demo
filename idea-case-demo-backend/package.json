@@ -12,7 +12,9 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
+    "fuzzy-search": "^3.0.1",
     "install": "^0.12.2",
-    "jsonfile": "^5.0.0"
+    "jsonfile": "^5.0.0",
+    "nodemon": "^1.18.10"
   }
 }

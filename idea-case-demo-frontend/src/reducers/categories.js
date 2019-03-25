@@ -20,7 +20,6 @@ export default function categories(state = initialState, action) {
     case ActionTypes.CATEGORIES_ALL_OK:
       let foo = action.categoryList;
       console.log("fetching");
-      console.log(state);
       if (state.isSearch) {
         let searchFilter = state.categorySearch.map(item => {
           return item.id;
@@ -101,6 +100,7 @@ export default function categories(state = initialState, action) {
     case ActionTypes.CATEGORIES_IS_SEARCH:
       return {
         ...state,
+        categorySearch: [],
         isSearch: action.isSearch
       };
     /*

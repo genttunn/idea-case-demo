@@ -17,9 +17,16 @@ class CategoryAdd extends Component {
       }
     });
   };
-  addCategoryButtonClicked = () => {
+  addCategoryButtonClicked = event => {
+    event.preventDefault();
     const category = this.state.newCategoryObject;
     this.props.addCategoryLocal(category);
+    this.setState(
+      {
+        newCategoryObject: { id: null, name: null, budget: null }
+      },
+      () => this.refs.form.reset()
+    );
 
     // this.props.addCategoryLocal(this.state.newCategoryObject);   // Other way
   };
@@ -28,9 +35,9 @@ class CategoryAdd extends Component {
       <div>
         <h4>New Category</h4>
         <br />
-        <p>
+        <form ref="form">
           Id:{" "}
-          <input id="id" type="text" onChange={this.inputFieldValueChanged} />
+          <input id="id" type="number" onChange={this.inputFieldValueChanged} />
           <br />
           <br />
           Name:{" "}
@@ -45,14 +52,13 @@ class CategoryAdd extends Component {
           />
           <br />
           <br />
-          <button
+          <input
             className="btn btn-success "
-            type="button"
+            type="submit"
             onClick={this.addCategoryButtonClicked}
-          >
-            ADD NEW CATEGORY
-          </button>
-        </p>
+            value="ADD NEW CATEGORY"
+          />
+        </form>
       </div>
     );
   };

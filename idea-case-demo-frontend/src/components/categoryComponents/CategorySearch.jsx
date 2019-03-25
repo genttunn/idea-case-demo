@@ -26,9 +26,22 @@ class CategorySearch extends Component {
       }
     });
   };
-  searchButtonClicked = () => {
-    const criteria = this.state.criteria;
-    this.props.searchCategoryLocal(criteria);
+  searchButtonClicked = event => {
+    event.preventDefault();
+    let criteria = this.state.criteria;
+    if (this.state.criteria.name === null || !this.state.criteria.name.trim()) {
+      this.props.searchCategoryLocal(criteria);
+    } // if name epmty switch to string search
+    else {
+      criteria.isAbove = 3;
+      this.props.searchCategoryLocal(criteria);
+    }
+    this.setState(
+      {
+        criteria: { name: null, budget: null, isAbove: 0 }
+      },
+      () => this.refs.form.reset()
+    );
   };
 
   render = () => {
@@ -36,7 +49,7 @@ class CategorySearch extends Component {
       <div>
         <h4>Search Category</h4>
         <br />
-        <p>
+        <form ref="form">
           Name:{" "}
           <input id="name" type="text" onChange={this.inputFieldValueChanged} />
           <br />
@@ -55,14 +68,13 @@ class CategorySearch extends Component {
           />
           <br />
           <br />
-          <button
+          <input
             className="btn btn-success "
-            type="button"
+            type="submit"
             onClick={this.searchButtonClicked}
-          >
-            SEARCH CATEGORY
-          </button>
-        </p>
+            value="SEARCH CATEGORY"
+          />
+        </form>
       </div>
     );
   };

@@ -1,5 +1,6 @@
 import ActionTypes from "./ActionTypes";
 const serverURL = "http://localhost:7000/category";
+let savedCriteria = null;
 // ACTION CREATORS (Action object creator functions)
 // ~ standard and only way to create each action object
 export const categoriesAll_REQ = () => ({
@@ -133,7 +134,11 @@ export function deleteCategory(category) {
     })
       .then(() => {
         dispatch(categoryDEL_OK());
-        dispatch(fetchAllCategories());
+        if (savedCriteria !== null) {
+          dispatch(searchCategory(savedCriteria));
+        } else {
+          dispatch(fetchAllCategories());
+        }
       })
       .catch(() => dispatch(categoryDEL_X()));
   };
@@ -163,7 +168,11 @@ export function editCategory(category) {
           alert("Invalid budget");
         } else if (data.status === 200) {
           dispatch(categoryEDIT_OK());
-          dispatch(fetchAllCategories());
+          if (savedCriteria !== null) {
+            dispatch(searchCategory(savedCriteria));
+          } else {
+            dispatch(fetchAllCategories());
+          }
         }
       })
       .catch(() => dispatch(categoryEDIT_X()));
@@ -171,6 +180,7 @@ export function editCategory(category) {
 }
 
 export function searchCategory(criteria) {
+  savedCriteria = criteria;
   return async (dispatch, getState) => {
     dispatch(categoriesSEARCH_REQ());
     fetch(serverURL + "/search", {
@@ -201,8 +211,7 @@ export function searchCategory(criteria) {
 
 export function toggleSearch(isSearch) {
   return async dispatch => {
-    console.log("toggle");
-    console.log(isSearch);
+    savedCriteria = null;
     dispatch(categoriesIS_SEARCH(isSearch));
   };
 }

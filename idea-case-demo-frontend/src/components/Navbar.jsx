@@ -3,17 +3,10 @@ import { connect } from "react-redux";
 import App from "../App";
 import Search from "../Search";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
-import { toggleSearch } from "../actions/category";
+
 class Navbar extends Component {
-  renderButton = () => {
-    return this.props.link === "/" ? "Home" : "Search";
-  };
-  toggleSearchMode = () => {
-    if (this.props.link === "/") {
-      this.props.toggleSearch(false);
-    } else {
-      this.props.toggleSearch(true);
-    }
+  renderName = () => {
+    return this.props.link === "/" ? "Home" : "Search Category";
   };
   render() {
     const categoryList = this.props.categories.categoryList;
@@ -28,11 +21,8 @@ class Navbar extends Component {
         </a>
         <span style={{ color: "white" }}>
           <Link to={this.props.link}>
-            <button
-              className="btn-primary m-3"
-              onClick={() => this.toggleSearchMode()}
-            >
-              {this.renderButton()}
+            <button type="button" className=" btn btn-primary m-3 p-1">
+              {this.renderName()}
             </button>
           </Link>
           Total budget : <span className="badge badge-primary">€{budget}</span>
@@ -42,16 +32,10 @@ class Navbar extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  toggleSearch: isSearch => {
-    dispatch(toggleSearch(isSearch));
-  }
-});
-
 const mapStateToProps = state => ({
   categories: state.categories
 });
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Navbar);
