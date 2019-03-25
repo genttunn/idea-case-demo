@@ -200,7 +200,10 @@ function editCategory(res, category, filePath) {
       jsonfile.writeFile(filePath, obj);
       return obj;
     })
-    .then(obj => {})
+    .then(obj => {
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(obj));
+    })
     .catch(() => {
       res.writeHead(500, { "Content-Type": "text/plain" });
       res.end("Reading or Writing server side JSON file failed.");
@@ -209,45 +212,36 @@ function editCategory(res, category, filePath) {
 
 /// 5 SEARCH CATEGORY
 
-app.get("/category/search", (req, res) => {
-  console.log("search");
+app.post("/category/search", (req, res) => {
+  console.log(req.body);
   const criteria = {
-    name: req.query.name,
-    budget: Number(req.query.budget),
-    isAbove: convertBoolean(req.query.isAbove)
+    name: req.body.name,
+    budget: Number(req.body.budget),
+    isAbove: Number(req.body.isAbove)
   };
-  console.log(JSON.stringify(criteria));
-  console.log(typeof criteria.isAbove);
   searchCategory(res, criteria, filePath);
 });
 
-function convertBoolean(input) {
-  if (input === "true") {
-    return true;
-  } else if (input === "false") {
-    return false;
-  }
-}
 function searchCategory(res, criteria, filePath) {
-  console.log(criteria);
   jsonfile
     .readFile(filePath)
     .then(list => {
       result = [];
-      if (typeof criteria.isAbove === "undefined") {
-        result = [
-          ...list.filter(
-            item => item.name == criteria.name || item.budget == criteria.budget
-          )
-        ];
-      } else {
-        console.log("this loop");
-        console.log(criteria.isAbove);
-        if (criteria.isAbove) {
+      switch (criteria.isAbove) {
+        case 0: //Equal
+          result = [
+            ...list.filter(
+              item =>
+                item.name == criteria.name || item.budget == criteria.budget
+            )
+          ];
+          break;
+        case 1: //Above
           result = [...list.filter(item => item.budget >= criteria.budget)];
-        } else {
+          break;
+        case 2: //Below
           result = [...list.filter(item => item.budget < criteria.budget)];
-        }
+          break;
       }
       return result;
     })

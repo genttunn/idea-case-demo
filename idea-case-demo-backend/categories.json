@@ -1,8 +1,1 @@
-[
-  { "id": "1", "name": "Talkoots", "budget": 1500 },
-  { "id": "2", "name": "Excursions", "budget": 2300 },
-  { "id": "3", "name": "Purchases", "budget": 2000 },
-  { "id": "4", "name": "Marathon", "budget": 1800 },
-  { "id": "5", "name": "Wages", "budget": 10000 },
-  { "id": "6", "name": "Supplies", "budget": 1444 }
-]
+[{"id":"1","name":"Talkoots","budget":900},{"id":"2","name":"Excursions","budget":2300},{"id":"3","name":"Purchases","budget":2000},{"id":"4","name":"Marathon","budget":1800},{"id":"5","name":"Wages","budget":15000},{"id":"6","name":"Supplies","budget":1444},{"id":"7","name":"Grocery","budget":500},{"id":"9","name":"Misc","budget":300}]
