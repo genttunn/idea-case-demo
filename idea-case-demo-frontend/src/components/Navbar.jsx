@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import App from "../App";
+import Search from "../Search";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+
 class Navbar extends Component {
+  renderName = () => {
+    return this.props.link === "/" ? "Home" : "Search";
+  };
   render() {
     const categoryList = this.props.categories.categoryList;
     let budget = 0;
@@ -13,12 +20,18 @@ class Navbar extends Component {
           Category List
         </a>
         <span style={{ color: "white" }}>
+          <Link to={this.props.link}>
+            <button type="button" className=" btn btn-success m-3 p-1">
+              {this.renderName()}
+            </button>
+          </Link>
           Total budget : <span className="badge badge-primary">€{budget}</span>
         </span>
       </nav>
     );
   }
 }
+
 const mapStateToProps = state => ({
   categories: state.categories
 });

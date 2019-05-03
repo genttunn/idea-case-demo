@@ -1,5 +1,6 @@
 import ActionTypes from "./ActionTypes";
 const serverURL = "http://localhost:7000/category";
+let savedCriteria = null;
 // ACTION CREATORS (Action object creator functions)
 // ~ standard and only way to create each action object
 export const categoriesAll_REQ = () => ({
@@ -16,14 +17,17 @@ export const categoriesAll_X = () => ({
 export const categoriesSEARCH_REQ = () => ({
   type: ActionTypes.CATEGORIES_SEARCH_REQ
 });
-export const categoriesSEARCH_OK = categoryList => ({
+export const categoriesSEARCH_OK = categorySearch => ({
   type: ActionTypes.CATEGORIES_SEARCH_OK,
-  categoryList: categoryList
+  categorySearch: categorySearch
 });
 export const categoriesSEARCH_X = () => ({
   type: ActionTypes.CATEGORIES_SEARCH_X
 });
-
+export const categoriesIS_SEARCH = isSearch => ({
+  type: ActionTypes.CATEGORIES_IS_SEARCH,
+  isSearch: isSearch
+});
 // Same with other actions...
 // Action object creator functions
 export const categoryAdd_REQ = () => ({
@@ -130,7 +134,11 @@ export function deleteCategory(category) {
     })
       .then(() => {
         dispatch(categoryDEL_OK());
-        dispatch(fetchAllCategories());
+        if (savedCriteria !== null) {
+          dispatch(searchCategory(savedCriteria));
+        } else {
+          dispatch(fetchAllCategories());
+        }
       })
       .catch(() => dispatch(categoryDEL_X()));
   };
@@ -160,10 +168,51 @@ export function editCategory(category) {
           alert("Invalid budget");
         } else if (data.status === 200) {
           dispatch(categoryEDIT_OK());
-          dispatch(fetchAllCategories());
+          if (savedCriteria !== null) {
+            dispatch(searchCategory(savedCriteria));
+          } else {
+            dispatch(fetchAllCategories());
+          }
         }
       })
       .catch(() => dispatch(categoryEDIT_X()));
+  };
+}
+
+export function searchCategory(criteria) {
+  savedCriteria = criteria;
+  return async (dispatch, getState) => {
+    dispatch(categoriesSEARCH_REQ());
+    fetch(serverURL + "/search", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: criteria.name,
+        budget: criteria.budget,
+        isAbove: criteria.isAbove
+      })
+    })
+      .then(data => data.json())
+      .then(data => {
+        const categorySearch = data;
+        console.log(categorySearch);
+        dispatch(categoriesSEARCH_OK(categorySearch));
+        dispatch(fetchAllCategories());
+      })
+      .catch(() => {
+        console.log("error fetching");
+        dispatch(categoriesSEARCH_X());
+      });
+  };
+}
+
+export function toggleSearch(isSearch) {
+  return async dispatch => {
+    savedCriteria = null;
+    dispatch(categoriesIS_SEARCH(isSearch));
   };
 }
 
