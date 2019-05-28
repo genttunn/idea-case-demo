@@ -6,7 +6,9 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 class Navbar extends Component {
   renderName = () => {
-    return this.props.link === "/" ? "Home" : "Search";
+
+    return this.props.link === "/" ? "Home" : "Search Category";
+
   };
   render() {
     const categoryList = this.props.categories.categoryList;
@@ -21,7 +23,9 @@ class Navbar extends Component {
         </a>
         <span style={{ color: "white" }}>
           <Link to={this.props.link}>
-            <button type="button" className=" btn btn-success m-3 p-1">
+
+            <button type="button" className=" btn btn-primary m-3 p-1">
+
               {this.renderName()}
             </button>
           </Link>
